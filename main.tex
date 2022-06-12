@@ -1,0 +1,172 @@
+\documentclass[b5paper]{article}
+
+
+\usepackage{subfiles}
+\usepackage{amsmath, amsfonts}
+\usepackage{amsthm}
+\usepackage{tikz-cd} 
+
+
+\newcommand{\field}{\mathcal{K}}
+
+
+\newcommand{\worddef}{\textrm}
+
+
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\frakh}{\mathfrak{h}}
+
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+
+\title{Reduction of connections on vector bundles}
+\date{}
+
+
+\begin{document}
+
+
+  \maketitle
+
+
+  \begin{definition}
+    Let $\pi_P: P \to M$ be a principal $G$-bundle and
+    $\pi_Q: Q \to M$ be a principal $H$-bundle.
+    We say $Q$ is a {\rm reduction} of $P$ if there is an embedding $\iota_Q: Q \to P$ and
+    an injective homomorphism $\iota_H: H \to Q$ such that it holds that
+    $\iota_Q(\eta h) = \iota_Q(\eta) \iota_H(h)$ for any $\eta \in Q$ and $h \in H$.
+  \end{definition}
+
+
+  Consider principal $G$-bundle $\pi_P: P \to M$, principal $H$-bundle $\pi_Q: Q \to M$,
+  and associated bundle $P \times_\rho V$ for
+  a representation $\rho: G \to GL(V)$.
+  If there is an homomorphism $\iota_H: H \to G$,
+  we can another associated bundle $Q \times_\sigma V$ for
+  the restriction representation for $\sigma = \rho \circ \iota_H$ of $H$.
+
+
+  \begin{proposition}
+    If $Q$ is a reduction of $P$, then there is a natural isomorphism between
+    $P \times_\rho V$ and $Q \times_\sigma V$.
+  \end{proposition}
+
+
+  \begin{proof}
+    Consider a map $Q \times V \to P \times V$, $(\eta, v) \mapsto (\iota_Q(\eta), v)$.
+    Then it holds that if $(\eta h, v) \sim (\eta, \sigma(h)v)$ then
+    \begin{align*}
+      (\iota_Q(\eta h), v) &= (\iota_Q(\eta) \iota_H(h), v) \\
+                           &\sim (\iota_Q(\eta) , \rho(\iota_H(h))v) \\
+                           &= (\iota_Q(\eta) , \sigma(h)v).
+    \end{align*}
+    Hence the map $\varphi: Q \times_\sigma V \to P \times_\rho V$, 
+    $\eta \times_\sigma v \mapsto \iota_Q(\eta) \times_\rho v$ is well-defined.
+    We want to show that $\varphi$ is a desired isomorphim.
+
+    We construct well-handled local trivializations of our bundles.
+    First we consider $Q$ and choose some local trivialization
+    $\phi^Q: Q|_U \to U \times H$.
+    Then we have a section $q: U \to Q|_U$ such that
+    $\phi^Q \circ q (y) = (y, e)$.
+    Using the section $q$, we can denote
+    $\phi^Q(\eta) = (y, h)$ where $y = \pi_Q(\eta)$ and $\eta = q(y) h$.
+
+    We construct $\phi^P: P|_U \to U \times G$
+    which satisfies the following commutative diagram:
+    \[
+      \begin{tikzcd}
+      P|_U \arrow[r, "\phi^P"] 
+      & U \times G\\
+      Q|_U \arrow[u,"\iota_Q"] \arrow[r, "\phi^Q"] 
+      & U \times H \arrow[u, "id \times \iota_H"'] \\
+      U \arrow[u, "q"] \arrow[ur, "id \times \{e\}"']
+      \end{tikzcd}
+    \]
+    Let $p = \iota_Q \circ q$ and define $\phi^P: P|_U \to U \times G$ by
+    $\phi^P(\xi) = (x, g)$ where $x = \pi_P(\xi)$ and $\xi = p(x) g$.
+    Then it holds that for $\eta = q(y)h \in Q|_U$
+    \begin{align*}
+      \iota_Q(\eta) &= \iota_Q(q(y)h) = \iota(q(y)) \iota_H(h) \\
+                    &= p(y) \iota_H(h) \\
+      \phi^P(\iota_Q(\eta)) &= (y, \iota_H(h)).
+    \end{align*}
+    This shows the commutativity of upper rectangle.
+    The commutativity of lower triangle follows by the definition of $q$.
+    Note that $\phi^P \circ p (x) = (x, \iota_H(e)) = (x, e)$ for $x \in U$.
+
+
+    Next we construct local trivializations for $E^P$ and $E^Q$.
+    Define $\psi^Q(q(y) \times_\sigma v) = v$ and
+    $\psi^P(p(x) \times_\sigma u) = u$.
+    Then trivially it holds that the following commutative diagram: 
+    \[
+      \begin{tikzcd}
+      E^P|_U \arrow[r, "\psi^P"] 
+      & U \times V\\
+      E^Q|_U \arrow[u,"\varphi"] \arrow[r, "\psi^Q"] 
+      & U \times V \arrow[u, equal]
+      \end{tikzcd}
+    \]
+    This implies that $¥varphi$ is an isomorphism from $E^Q$ to $E^P$.
+
+  \end{proof}
+
+  For a convinience in the following section,
+  we re-state the exietence of well-handled local trivializations of our bundles:
+
+  \begin{proposition}
+    For a local trivialization $\phi^Q: Q|_U \to U \times H$,
+    difine 
+    \begin{itemize}
+      \item a section $q: U \to Q|_U$ by $\phi^Q \circ q (y) = (y, e)$;
+      \item a section $p: U \to P|_U$ by $p = \iota_Q \circ q$;
+      \item a local trivialization $\phi^P: P|_U \to U \times G$ of $P$ by 
+        $\phi^P(\xi) = (x, g)$ where $x = \pi_P(\xi)$ and $\xi = p(x) g$;
+      \item a local trivialization $\psi^Q: E^Q|_U \to U \times V$ of $E^Q$ by
+        $\psi^Q(q(y) \times_\sigma v) = v$;
+      \item a local trivialization $\psi^P: E^P|_U \to U \times V$ of $E^P$ by
+        $\psi^P(p(x) \times_\sigma u) = u$.
+    \end{itemize}
+    Then it holds the following commutative diagrams:
+    \[
+      \begin{tikzcd}
+      P|_U \arrow[r, "\phi^P"] 
+      & U \times G\\
+      Q|_U \arrow[u,"\iota_Q"] \arrow[r, "\phi^Q"] 
+      & U \times H \arrow[u, "id \times \iota_H"']
+      \end{tikzcd} %
+      \begin{tikzcd}
+      E^P|_U \arrow[r, "\psi^P"] 
+      & U \times V \\
+      E^Q|_U \arrow[u,"\varphi"] \arrow[r, "\psi^Q"] 
+      & U \times V \arrow[u, equal]
+      \end{tikzcd}
+    \]
+  \end{proposition}
+
+
+  \begin{definition}
+    Let $\pi_P: P \to M$ be a principal $G$-bundle and
+    $\pi_Q: Q \to M$ be a principal $H$-bundle which is a reduction of $P$.
+    We call a connection form $\theta \in \Omega^1(P; \frakg)$ is {\rm reducible to $Q$}
+    if $(\ker \theta)_{\iota_Q(\eta)} \subset (\iota_Q)_{*\eta}(T_\eta Q)$
+    for any $\eta \in Q$.
+  \end{definition}
+
+  \begin{theorem}
+    Consider a (real or complex) Hermitian verctor bundle $(E, h)$,
+    frame bandle $P$ of $E$, and frame bandle $Q$ of $(E, h$).
+    For a connection form $\theta \in \Omega^1(P; \frakg)$ 
+    the followings are equivalent:
+    \begin{itemize}
+      \item the induced connection $\nabla^\theta$ on $E$ is $h$-preserving;
+      \item $\theta$ is reducible to $Q$.
+    \end{itemize}
+
+  \end{theorem}
+
+\end{document}
